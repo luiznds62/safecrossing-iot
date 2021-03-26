@@ -1,0 +1,52 @@
+
+// TCS230 or TCS3200 pins wiring to Arduino
+#define S0 D4
+#define S1 D5
+#define S2 D6
+#define S3 D7
+#define sensorOut D8
+
+int redFrequency = 0;
+int greenFrequency = 0;
+int blueFrequency = 0;
+
+void setup() {
+  pinMode(S0, OUTPUT);
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(S3, OUTPUT);
+  pinMode(sensorOut, INPUT);
+ 
+  digitalWrite(S0,HIGH);
+  digitalWrite(S1,LOW);
+  
+    Serial.begin(9600);
+}
+void loop() {
+  digitalWrite(S2,LOW);
+  digitalWrite(S3,LOW);
+  redFrequency = pulseIn(sensorOut, LOW);
+  Serial.print("R = ");
+  Serial.print(redFrequency);
+  delay(100);
+  digitalWrite(S2,HIGH);
+  digitalWrite(S3,HIGH);
+  greenFrequency = pulseIn(sensorOut, LOW);
+  Serial.print(" G = ");
+  Serial.print(greenFrequency);
+  delay(100);
+  digitalWrite(S2,LOW);
+  digitalWrite(S3,HIGH);
+  blueFrequency = pulseIn(sensorOut, LOW);
+  Serial.print(" B = ");
+  Serial.println(blueFrequency);
+  delay(100);
+
+  if(redFrequency >= 11 && redFrequency <= 24 && greenFrequency >= 158 && greenFrequency <= 235){
+    Serial.println("RED COLOR");
+  } else if(greenFrequency >= 31 && greenFrequency <= 49 && blueFrequency >= 31 && blueFrequency <= 102) {
+    Serial.println("GREEN COLOR");
+   }else if(redFrequency >= 14 && redFrequency <= 23 && greenFrequency >= 29 && greenFrequency <= 50 && blueFrequency >= 46 && blueFrequency <= 74) {
+    Serial.println("YELLOW COLOR");
+  }
+}
