@@ -1,13 +1,23 @@
-#ifndef Color_Reader_h
-#define Color_Reader_h
+#ifndef COLOR_READER_H
+#define COLOR_READER_H
 
 #include <Arduino.h>
 
 class ColorReader
 {
 public:
+    enum Colors
+    {
+        RED = 1,
+        YELLOW = 2,
+        GREEN = 3
+    };
+
     ColorReader(int S0, int S1, int S2, int S3, int sensorOut);
-    string read();
+    bool enableLogging();
+    void log(int value);
+    void log(char* message);
+    int read();
 
 private:
     int S0_;
@@ -16,12 +26,12 @@ private:
     int S3_;
     int sensorOut_;
 
+    bool isLoggingEnabled = false;
+
     int redFrequency = 0;
     int greenFrequency = 0;
     int blueFrequency = 0;
 
-    const std::string RED_COLOR = "RED";
-    const std::string GREEN_COLOR = "GREEN";
-    const std::string YELLOW_COLOR = "YELLOW";
+    const int frequencyReaderDelay = 250;
 };
 #endif

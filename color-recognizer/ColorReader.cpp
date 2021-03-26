@@ -5,6 +5,7 @@
 */
 
 #include "ColorReader.h"
+#include <string>
 
 ColorReader::ColorReader(int S0, int S1, int S2, int S3, int sensorOut)
 {
@@ -22,39 +23,57 @@ ColorReader::ColorReader(int S0, int S1, int S2, int S3, int sensorOut)
 
     digitalWrite(S0_, HIGH);
     digitalWrite(S1_, LOW);
+
+    Serial.println("Class ready to read colors");
 }
 
-string ColorReader::read()
+bool ColorReader::enableLogging(){
+    isLoggingEnabled = true;
+}
+
+void ColorReader::log(int value) {
+    if(isLoggingEnabled){
+        Serial.print(value);
+    }
+}
+
+void ColorReader::log(char* message) {
+    if(isLoggingEnabled){
+        Serial.print(message);
+    }
+}
+
+int ColorReader::read()
 {
     digitalWrite(S2_, LOW);
     digitalWrite(S3_, LOW);
     redFrequency = pulseIn(sensorOut_, LOW);
-    Serial.print("R = ");
-    Serial.print(redFrequency);
-    delay(100);
+    log("R = ");
+    log(redFrequency);
+    delay(frequencyReaderDelay);
     digitalWrite(S2_, HIGH);
     digitalWrite(S3_, HIGH);
     greenFrequency = pulseIn(sensorOut_, LOW);
-    Serial.print(" G = ");
-    Serial.print(greenFrequency);
-    delay(100);
+    log(" G = ");
+    log(greenFrequency);
+    delay(frequencyReaderDelay);
     digitalWrite(S2_, LOW);
     digitalWrite(S3_, HIGH);
     blueFrequency = pulseIn(sensorOut_, LOW);
-    Serial.print(" B = ");
-    Serial.println(blueFrequency);
-    delay(100);
+    log(" B = ");
+    log(blueFrequency);
+    delay(frequencyReaderDelay);
 
-    if (redFrequency >= 11 && redFrequency <= 24 && greenFrequency >= 158 && greenFrequency <= 235)
+    if (redFrequency >= 7 && redFrequency <= 183 && greenFrequency >= 124 && greenFrequency <= 258)
     {
-        return RED_COLOR;
+        return RED;
     }
-    else if (greenFrequency >= 31 && greenFrequency <= 49 && blueFrequency >= 31 && blueFrequency <= 102)
+    else if (redFrequency >= 60 && redFrequency <= 164 && greenFrequency >= 4 && greenFrequency <= 116 && blueFrequency >= 31 && blueFrequency <= 110)
     {
-        return GREEN_COLOR;
+        return GREEN;
     }
-    else if (redFrequency >= 14 && redFrequency <= 23 && greenFrequency >= 29 && greenFrequency <= 50 && blueFrequency >= 46 && blueFrequency <= 74)
+    else if (redFrequency >= 5 && redFrequency <= 43 && greenFrequency >= 7 && greenFrequency <= 65 && blueFrequency >= 21 && blueFrequency <= 133)
     {
-        return YELLOW_COLOR;
+        return YELLOW;
     }
 }

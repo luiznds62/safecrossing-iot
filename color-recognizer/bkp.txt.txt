@@ -28,25 +28,25 @@ void loop() {
   redFrequency = pulseIn(sensorOut, LOW);
   Serial.print("R = ");
   Serial.print(redFrequency);
-  delay(100);
+  delay(250);
   digitalWrite(S2,HIGH);
   digitalWrite(S3,HIGH);
   greenFrequency = pulseIn(sensorOut, LOW);
   Serial.print(" G = ");
   Serial.print(greenFrequency);
-  delay(100);
+  delay(250);
   digitalWrite(S2,LOW);
   digitalWrite(S3,HIGH);
   blueFrequency = pulseIn(sensorOut, LOW);
   Serial.print(" B = ");
   Serial.println(blueFrequency);
-  delay(100);
+  delay(250);
 
-  if(redFrequency >= 11 && redFrequency <= 24 && greenFrequency >= 158 && greenFrequency <= 235){
+  if(redFrequency >= 7 && redFrequency <= 183 && greenFrequency >= 124 && greenFrequency <= 258){
     Serial.println("RED COLOR");
-  } else if(greenFrequency >= 31 && greenFrequency <= 49 && blueFrequency >= 31 && blueFrequency <= 102) {
+  } else if(redFrequency >= 60 && redFrequency <= 164 && greenFrequency >= 4 && greenFrequency <= 116 && blueFrequency >= 31 && blueFrequency <= 110) {
     Serial.println("GREEN COLOR");
-   }else if(redFrequency >= 14 && redFrequency <= 23 && greenFrequency >= 29 && greenFrequency <= 50 && blueFrequency >= 46 && blueFrequency <= 74) {
+   }else if(redFrequency >= 5 && redFrequency <= 43 && greenFrequency >= 7 && greenFrequency <= 65 && blueFrequency >= 21 && blueFrequency <= 133) {
     Serial.println("YELLOW COLOR");
   }
 }
