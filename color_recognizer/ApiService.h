@@ -10,7 +10,7 @@ class ApiService
 public:
     ApiService();
     String auth(String email, String password);
-
+    int getServicePort();
 private:
     WiFiClient client;
     HTTPClient http;

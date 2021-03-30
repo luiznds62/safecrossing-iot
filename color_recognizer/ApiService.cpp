@@ -12,6 +12,31 @@
 
 ApiService::ApiService(){};
 
+int ApiService::getServicePort()
+{
+  Serial.println("Starting fetching service port process");
+  http.begin(baseUrl + "/port");
+
+  String payload;
+  int httpResponseCode = http.GET();
+  if (httpResponseCode > 0)
+  {
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+      payload = http.getString();
+  }else
+  {
+      Serial.print("Error code: ");
+      Serial.println(httpResponseCode);
+  }
+  http.end();
+
+  Serial.print("SERVICE PORT: ");
+  Serial.println(payload);
+
+  return payload.toInt();
+}
+
 String ApiService::auth(String email, String password)
 {
     Serial.println("Starting auth process");

@@ -1,11 +1,12 @@
 /*
-  SocketHandler.cpp - Library for handling SocketIO business logic.
+  SocketHandler.cpp - Library for handling websocket connection.
   Created by Luiz Henrique Naspolini, March 28, 2021.
   Released into the public domain.
 */
 
 #include "SocketHandler.h"
 #include <WebSocketsClient.h>
+#define USE_SERIAL Serial
 
 SocketHandler::SocketHandler(){}
 
